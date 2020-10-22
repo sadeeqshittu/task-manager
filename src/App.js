@@ -1,25 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Nav from './components/Nav';
+import Home from './pages/Home';
+import ProjectDetail  from './pages/ProjectDetails';
+import {ProjectProvider} from './projectContext';
+import {
+ BrowserRouter as Router,
+ Switch,
+ Route
+} from 'react-router-dom';
 
-function App() {
+import firebase from './Firebase/Firebase';
+
+
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <ProjectProvider>
+    <Router>
+         <Switch>
+          <Route exact path='/' component={Home} />
+          <Route path='/project/:id'>
+                <ProjectDetail />
+          </Route>
+          <Route path= '/today/' component={Home}/>
+          </Switch>
+    </Router>
+    </ProjectProvider>
   );
 }
 
